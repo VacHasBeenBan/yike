@@ -1,5 +1,5 @@
 //创建app应用模块
-var yike = angular.module("yike",[]);
+var yike = angular.module("yike",["ctrls","ngRoute"]);
 /* 
     调用run方法
     该方法的作用是,当模块创建好之后就可以直接执行
@@ -44,3 +44,32 @@ yike.run(["$rootScope",function($rootScope){
     }
 
 }]);
+//修复锚点值得改变
+yike.config(["$locationProvider",function($locationProvider){
+    $locationProvider.hashPrefix("");
+}]);
+//配置路由 
+yike.config(["$routeProvider",function($routeProvider){
+    $routeProvider.when("/",{
+        redirectTo:"/index"//跳转到/index处理
+    }).when("/index",{
+        templateUrl:"./views/text.html",//将要在ng-view区域显示的视图
+        controller:"index"//调用index控制器
+    }).when("/older",{
+        templateUrl:"./views/text.html",//将要在ng-view区域显示的视图
+        controller:"older"
+    }).when("/author",{
+        templateUrl:"./views/text.html",//将要在ng-view区域显示的视图
+        controller:"author"
+    }).when("/category",{
+        templateUrl:"./views/text.html",//将要在ng-view区域显示的视图
+        controller:"category"
+    })
+    .when("/favourite",{
+        templateUrl:"./views/text.html",//将要在ng-view区域显示的视图
+        controller:"favourite"
+    }).when("/settings",{
+        templateUrl:"./views/text.html",//将要在ng-view区域显示的视图
+        controller:"settings"
+    })
+}])
